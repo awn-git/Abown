@@ -1,0 +1,36 @@
+{
+  "author":"Awn",
+  "homepage_url":"https://twitter.com/Awn_tw",
+
+  "name": "Abown",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Abownはおーぷん２ちゃんねる内で動作する、様々な邪魔なものを消してノーストレスでスレを閲覧するための、Google Chrome拡張機能です。"
+  ,
+
+  "permissions":["tabs","storage","webRequest","http://*.open2ch.net/*","contextMenus"],
+
+  "content_scripts":[
+    {
+      "matches":["http://*.open2ch.net/*"],
+      "js":["jquery-2.1.3.min.js","init_storage.js","content_scripts.js"]
+    }
+  ],
+
+  "browser_action" : {
+    "default_title":"Abown",
+    "default_popup":"popup.html"
+  },
+  
+  "background":{
+    "scripts": ["background.js"],
+    "persistent": true
+    },
+
+  "options_page":"option.html",
+
+  "icons":{
+    "48":"icon48.png"
+  }
+
+}
