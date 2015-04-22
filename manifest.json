@@ -5,7 +5,7 @@
   "name": "Abown",
   "version": "1.0.1",
   "manifest_version": 2,
-  "description": "Abownはおーぷん２ちゃんねる内で動作する、様々な邪魔なものを消してノーストレスでスレを閲覧するための、Google Chrome拡張機能です。"
+  "description": "Abownは、様々な邪魔なものを消してノーストレスでスレを閲覧するための、おーぷん２ちゃんねる内で動作するGoogle Chrome拡張機能です。"
   ,
 
   "permissions":["tabs","storage","webRequest","http://*.open2ch.net/*","contextMenus"],
