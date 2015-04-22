@@ -19,7 +19,7 @@
 // DOM読み込み時に実行する関数群
 
 //初期化
-ini_st = init_storage();
+init_storage();
 
 
 //Abown初回起動時以降実行される
@@ -36,8 +36,7 @@ chrome.storage.local.get(
 	"s_a_list",
 	"ng_word_list",
 	"ng_th_list",
-	"ng_tw_list",
-	"sbezck"
+	"ng_tw_list"
 	],function(items){
 
 	//==================
@@ -55,9 +54,11 @@ chrome.storage.local.get(
 		ng_tw_listt = $foo4.split(",");
 
 
+
+
 		//ハードあぼーんのみ実行
 		if(items.kote_hard - items.kote_soft == 1){
-			if( hard_abone_list != 0 ){
+			if( hard_abone_list[0] != "" ){
 				console.log("exec hardAboner");
 				hardAboner();
 			}
@@ -65,7 +66,7 @@ chrome.storage.local.get(
 
 		//ソフトあぼーんのみ実行
 		if(items.kote_soft - items.kote_hard == 1){
-			if( soft_abone_list.length != 0 ){
+			if( soft_abone_list[0] != "" ){
 				console.log("exec softAboner");
 				softAboner();
 			}
@@ -73,12 +74,12 @@ chrome.storage.local.get(
 
 		//ハードあぼーんもソフトあぼーんも実行
 		if(items.kote_hard * items.kote_soft == 1){
-			if( hard_abone_list.length != 0 ){
+			if( hard_abone_list[0] != "" ){
 				console.log("exec hardAboner");
 				hardAboner();
 			}
 
-			if( soft_abone_list.length != 0 ){
+			if( soft_abone_list[0] != "" ){
 				console.log("exec softAboner");
 				softAboner();
 			}
@@ -99,7 +100,7 @@ chrome.storage.local.get(
 
 		//NGワードのハードあぼーんを実行
 		if( items.ng_hard == 1){
-			if( ng_word_listt != "" ){
+			if( ng_word_listt[0] != "" ){
 				console.log("exec hardNgAboner");
 				hardNgAboner();					
 			}
@@ -107,7 +108,7 @@ chrome.storage.local.get(
 
 		//NGスレタイのハードあぼーんを実行
 		if( items.th_hard == 1){
-			if( ng_th_listt != "" ){
+			if( ng_th_listt[0] != "" ){
 				console.log("exec hardThAboner");
 				hardThAboner();
 			}
@@ -115,20 +116,11 @@ chrome.storage.local.get(
 
 		//NGTWIDのハードあぼーんを実行
 		if( items.tw_hard == 1){
-			if( ng_tw_listt != "" ){
+			if( ng_tw_listt[0] != "" ){
 				console.log("exec hardTwAboner");
 				hardTwAboner();
 			}
 		}
-
-		//スレ一覧を見やすくするオプションを実行
-		if( items.sbezck == 1){
-			if( (location.href).indexOf("subback.html") > 0 ){
-				console.log("exec subbackEZ");
-				subbackEZ();
-			}
-		}
-
 	}
 );
 
@@ -228,6 +220,7 @@ function hardTwAboner(){
 		$hta.html("ついったーあぼーん");
 		$hta.parent().parent().next().css("visibility","hidden");
 		$hta.parent().parent().next().children().css("visibility","hidden");
+		$hta.parent().prev().html("<b>ついったーあぼーん</b>");
 	});
 };
 
@@ -245,15 +238,24 @@ function hardThAboner(){
 };
 
 
-//関数：subbackEZ
-//スレ一覧(http://*.open2ch.net/*/subback.html)を見やすくする
-function subbackEZ(){	
-			$("body").css("background-color","honeydew");
-			$("a").after("<br>");
-			$("a").hover(function(){$(this).css("background-color","cyan")},function(){$(this).css("background-color","transparent")});
-			$("small").css("font-size","18px");			
-};
 
+//
+//
+//=====================================//
+
+
+
+//=====================================//
+//
+// 隠し機能
+//
+
+// スレ一覧の操作を実行する
+if( (location.href).indexOf("subback.html") > 0 ){
+	kakusi1();
+}
+
+//
 //
 //
 //=====================================//

@@ -45,6 +45,8 @@ function init_storage(){
 			chrome.storage.local.set({'ng_word_list':''},function(){});//【デフォルト】NGワードは何も設定しない
 			chrome.storage.local.set({'ng_th_list':''},function(){});//【デフォルト】NGスレタイは何も設定しない
 			chrome.storage.local.set({'ng_tw_list':'@'},function(){});//【デフォルト】NGTWIDは"@"を設定
+			chrome.storage.local.set({'sbezck':false},function(){});//隠しオプションはチェックを外す
+			chrome.storage.local.set({'createdck':false},function(){});//隠しオプションはチェックを外す
 
 		//ページを再読み込み
 		location.reload(true);

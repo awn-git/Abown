@@ -40,12 +40,15 @@ $("#hozons").click(function(){
 
 
 
-		if( $("#sbez").prop("checked") == true ){
-			$sbezck = 1;
-		}else{
-			$sbezck = 0;
-		}
+		//隠し機能：スレ一覧をスレタイごとに開業を入れて表示
+		$sbezck = $("#sbez").prop("checked");
 		chrome.storage.local.set({"sbezck":$sbezck},function(){});
+		
+		//隠し機能：スレ一覧を作成順で表示
+		$createdck = $("#created").prop("checked");
+		chrome.storage.local.set({"createdck":$createdck},function(){});
+
+
 
 		alert("（　＾＾）ほぞんしたお");
 	}else{
@@ -73,7 +76,8 @@ $("#defo").click(function(){
 		chrome.storage.local.set({'ng_word_list':''},function(){});//NGワードは何も設定しない
 		chrome.storage.local.set({'ng_th_list':''},function(){});//NGスレタイは何も設定しない
 		chrome.storage.local.set({'ng_tw_list':'@'},function(){});//NGTWIDは"@"
-		chrome.storage.local.set({'sbezck':0},function(){});//隠しオプションはチェックを外す
+		chrome.storage.local.set({'sbezck':false},function(){});//隠しオプションはチェックを外す
+		chrome.storage.local.set({'createdck':false},function(){});//隠しオプションはチェックを外す
 
 	//おぷしょんページの表示を変更
 		$("#h_a_list").val("◆");
@@ -82,6 +86,7 @@ $("#defo").click(function(){
 		$("#ng_th_list").val("");
 		$("#ng_tw_list").val("@");
 		$("#sbez").prop("checked",false);
+		$("#created").prop("checked",false);
 
 		alert("（　＾＾）もどしたお");
 	}else{
@@ -108,18 +113,16 @@ init_storage();
 
 
 //ストレージからNGワードなどを取得し、おぷしょんぺーじに表示する
-chrome.storage.local.get(["h_a_list","s_a_list","ng_word_list","ng_th_list","ng_tw_list","sbezck"],function(items){
+chrome.storage.local.get(["h_a_list","s_a_list","ng_word_list","ng_th_list","ng_tw_list","sbezck","createdck"],function(items){
 			$("#h_a_list").val( items.h_a_list );
 			$("#s_a_list").val( items.s_a_list );
 			$("#ng_word_list").val( items.ng_word_list );
 			$("#ng_th_list").val( items.ng_th_list );
 			$("#ng_tw_list").val( items.ng_tw_list );
 
-			if( items.sbezck == 1){
-				$("#sbez").prop("checked",true);
-			}else{
-				$("#sbez").prop("checked",false);
-			}
+			$("#sbez").prop("checked",items.sbezck);
+			$("#created").prop("checked",items.createdck);
+			
 	});
 });
 

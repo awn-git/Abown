@@ -185,7 +185,7 @@ chrome.contextMenus.create({
         type: 'normal',
         id: '3',
         contexts:['selection'],
-        title: 'NGスレタイに設定する',
+        title: 'NGスレタイにする',
 
         onclick:function(info){
         	chrome.tabs.query({title: "おぷしょんぺーじ"},function(tabs){
@@ -229,7 +229,7 @@ chrome.contextMenus.create({
         type: 'normal',
         id: '4',
         contexts:['selection'],
-        title: 'NGTWIDに設定する',
+        title: 'NGTWIDにする',
 
         onclick:function(info){
         	chrome.tabs.query({title: "おぷしょんぺーじ"},function(tabs){
