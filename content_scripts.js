@@ -239,7 +239,6 @@ function hardThAboner(){
 			if( this != "" ){
 				//NGワードを含むスレタイを除外
 		  		$("#topThreads a:contains('"+this+"')").empty(); //板トップのスレ一覧から
-	  			$("#trad a:contains('" +this+ "')").prev().empty();//スレ一覧(subback.html)から
 	  			$("#trad a:contains('" +this+ "')").empty();//スレ一覧(subback.html)から 				
 			}
 		});
