@@ -40,11 +40,11 @@ function init_storage(){
 			chrome.storage.local.set({'tw_hard':0},function(){});//[デフォルト]tw_hardを無効
 
 		//おぷしょんぺーじの値のデフォルト
-			chrome.storage.local.set({'h_a_list':'◆'},function(){});//【デフォルト】コテあぼーん(ハード)に"◆"を設定
-			chrome.storage.local.set({'s_a_list':'◆'},function(){});//【デフォルト】コテあぼーん(ソフト)に"◆"を設定
-			chrome.storage.local.set({'ng_word_list':''},function(){});//【デフォルト】NGワードは何も設定しない
-			chrome.storage.local.set({'ng_th_list':''},function(){});//【デフォルト】NGスレタイは何も設定しない
-			chrome.storage.local.set({'ng_tw_list':'@'},function(){});//【デフォルト】NGTWIDは"@"を設定
+			chrome.storage.local.set({'h_a_list':["◆"]},function(){});//【デフォルト】コテあぼーん(ハード)に"◆"を設定
+			chrome.storage.local.set({'s_a_list':["◆"]},function(){});//【デフォルト】コテあぼーん(ソフト)に"◆"を設定
+			chrome.storage.local.set({'ng_word_list':[]},function(){});//【デフォルト】NGワードは何も設定しない
+			chrome.storage.local.set({'ng_th_list':[]},function(){});//【デフォルト】NGスレタイは何も設定しない
+			chrome.storage.local.set({'ng_tw_list':["@"]},function(){});//【デフォルト】NGTWIDは"@"を設定
 			chrome.storage.local.set({'sbezck':false},function(){});//隠しオプションはチェックを外す
 			chrome.storage.local.set({'createdck':false},function(){});//隠しオプションはチェックを外す
 

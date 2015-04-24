@@ -66,27 +66,28 @@ chrome.contextMenus.create({
 	        //選択した文字列を取得
 	        	infostr = info.selectionText;
 
-
 	        //ストレージに格納
 	        	chrome.storage.local.get(["h_a_list"],function(items){
-	        		old_item = items.h_a_list;
-	        		alert("（　＾＾）今は" + old_item +"がセットされてるお");
+	        		old_item = [];
+	        		if( items.h_a_list != ""){
+	        			old_item = old_item.concat(items.h_a_list);
+	        		}
 
-	        		if(confirm("（　＾＾）" + infostr + "を追加するかお？")){
-	        			if(old_item.length != 0){
-			        		new_item = old_item + "," + infostr;
-			        	}else{
-			        		new_item = infostr;
-			        	}
+	        		if( confirm("（　＾＾）" + infostr + "を追加するかお？") ){
+	        			new_item = [];
+	        			new_item = old_item.concat(infostr);
 	        			chrome.storage.local.set({"h_a_list":new_item},function(){
-							alert("（　＾＾）保存したら" + new_item + "になったお");
+							alert("（　＾＾）保存したお");
 	        			});
+
 	        		}else{
 	        			alert("（　＾＾）保存してないお");
 	        		}
 	        	});
-        });
-    }
+
+	        });
+        }
+    
 });
 
 
@@ -114,18 +115,18 @@ chrome.contextMenus.create({
 
 	        //ストレージに格納
 	        	chrome.storage.local.get(["s_a_list"],function(items){
-	        		old_item = items.s_a_list;
-	        		alert("（　＾＾）今は" + old_item +"がセットされてるお");
-
-	        		if(confirm("（　＾＾）" + infostr + "を追加するかお？")){
-	        			if(old_item.length != 0){
-			        		new_item = old_item + "," + infostr;
-			        	}else{
-			        		new_item = infostr;
-			        	}	        			
+	        		old_item = [];
+	        		if( items.s_a_list != ""){
+	        			old_item = old_item.concat(items.s_a_list);
+	        		}
+	        		
+	        		if( confirm("（　＾＾）" + infostr + "を追加するかお？") ){
+	        			new_item = [];
+	        			new_item = old_item.concat(infostr);
 	        			chrome.storage.local.set({"s_a_list":new_item},function(){
-							alert("（　＾＾）保存したら" + new_item + "になったお");
+							alert("（　＾＾）保存したお");
 	        			});
+
 	        		}else{
 	        			alert("（　＾＾）保存してないお");
 	        		}
@@ -158,18 +159,18 @@ chrome.contextMenus.create({
 
 	        //ストレージに格納
 	        	chrome.storage.local.get(["ng_word_list"],function(items){
-	        		old_item = items.ng_word_list;
-	        		alert("（　＾＾）今は" + old_item +"がセットされてるお");
-
-	        		if(confirm("（　＾＾）" + infostr + "を追加するかお？")){
-			        	if(old_item.length != 0){
-			        		new_item = old_item + "," + infostr;
-			        	}else{
-			        		new_item = infostr;
-			        	}
+	        		old_item = [];
+	        		if( items.ng_word_list != ""){
+	        			old_item = old_item.concat(items.ng_word_list);
+	        		}
+	        		
+	        		if( confirm("（　＾＾）" + infostr + "を追加するかお？") ){
+	        			new_item = [];
+	        			new_item = old_item.concat(infostr);
 	        			chrome.storage.local.set({"ng_word_list":new_item},function(){
-							alert("（　＾＾）保存したら" + new_item + "になったお");
+							alert("（　＾＾）保存したお");
 	        			});
+
 	        		}else{
 	        			alert("（　＾＾）保存してないお");
 	        		}
@@ -202,18 +203,18 @@ chrome.contextMenus.create({
 
 	        //ストレージに格納
 	        	chrome.storage.local.get(["ng_th_list"],function(items){
-	        		old_item = items.ng_th_list;
-	        		alert("（　＾＾）今は" + old_item +"がセットされてるお");
-
-	        		if(confirm("（　＾＾）" + infostr + "を追加するかお？")){
-	        			if(old_item.length != 0){
-			        		new_item = old_item + "," + infostr;
-			        	}else{
-			        		new_item = infostr;
-			        	}
+	        		old_item = [];
+	        		if( items.ng_th_list != ""){
+	        			old_item = old_item.concat(items.ng_th_list);
+	        		}
+	        		
+	        		if( confirm("（　＾＾）" + infostr + "を追加するかお？") ){
+	        			new_item = [];
+	        			new_item = old_item.concat(infostr);
 	        			chrome.storage.local.set({"ng_th_list":new_item},function(){
-							alert("（　＾＾）保存したら" + new_item + "になったお");
+							alert("（　＾＾）保存したお");
 	        			});
+
 	        		}else{
 	        			alert("（　＾＾）保存してないお");
 	        		}
@@ -246,18 +247,18 @@ chrome.contextMenus.create({
 
 	        //ストレージに格納
 	        	chrome.storage.local.get(["ng_tw_list"],function(items){
-	        		old_item = items.ng_tw_list;
-	        		alert("（　＾＾）今は" + old_item +"がセットされてるお");
-
-	        		if(confirm("（　＾＾）" + infostr + "を追加するかお？")){
-	        			if(old_item.length != 0){
-			        		new_item = old_item + "," + infostr;
-			        	}else{
-			        		new_item = infostr;
-			        	}
+	        		old_item = [];
+	        		if( items.ng_tw_list != ""){
+	        			old_item = old_item.concat(items.ng_tw_list);
+	        		}
+	        		
+	        		if( confirm("（　＾＾）" + infostr + "を追加するかお？") ){
+	        			new_item = [];
+	        			new_item = old_item.concat(infostr);
 	        			chrome.storage.local.set({"ng_tw_list":new_item},function(){
-							alert("（　＾＾）保存したら" + new_item + "になったお");
+							alert("（　＾＾）保存したお");
 	        			});
+
 	        		}else{
 	        			alert("（　＾＾）保存してないお");
 	        		}

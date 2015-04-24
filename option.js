@@ -22,20 +22,26 @@
 
 $("#hozons").click(function(){
 
+
 	if( confirm("（　＾＾）ほぞんするお？") ){
-		$has = $("#h_a_list").val();
+		$has = $("#h_a_list").val().split("\n");
+		if( $has == "" ){ $has = []; }
 		chrome.storage.local.set({"h_a_list":$has},function(){});
 
-		$sas = $("#s_a_list").val();
+		$sas = $("#s_a_list").val().split("\n");
+		if( $sas == "" ){ $sas = []; }
 		chrome.storage.local.set({"s_a_list":$sas},function(){});
 
-		$nwl = $("#ng_word_list").val();
+		$nwl = $("#ng_word_list").val().split("\n");
+		if( $nwl == "" ){ $nwl = []; }
 		chrome.storage.local.set({"ng_word_list":$nwl},function(){});
 
-		$nthl = $("#ng_th_list").val();
+		$nthl = $("#ng_th_list").val().split("\n");
+		if( $nthl == "" ){ $nthl = []; }
 		chrome.storage.local.set({"ng_th_list":$nthl},function(){});
 
-		$ntl = $("#ng_tw_list").val();
+		$ntl = $("#ng_tw_list").val().split("\n");
+		if( $ntl == "" ){ $ntl = []; }
 		chrome.storage.local.set({"ng_tw_list":$ntl},function(){});
 
 
@@ -47,6 +53,7 @@ $("#hozons").click(function(){
 		//隠し機能：スレ一覧を作成順で表示
 		$createdck = $("#created").prop("checked");
 		chrome.storage.local.set({"createdck":$createdck},function(){});
+
 
 
 
@@ -71,11 +78,11 @@ $("#defo").click(function(){
 	if( confirm("（　＾＾）でふぉるとにもどすお？") ){
 
 	//ストレージに値を格納
-		chrome.storage.local.set({'h_a_list':'◆'},function(){});//コテあぼーんハードは"◆"
-		chrome.storage.local.set({'s_a_list':'◆'},function(){});//コテあぼーんソフトは"◆"
-		chrome.storage.local.set({'ng_word_list':''},function(){});//NGワードは何も設定しない
-		chrome.storage.local.set({'ng_th_list':''},function(){});//NGスレタイは何も設定しない
-		chrome.storage.local.set({'ng_tw_list':'@'},function(){});//NGTWIDは"@"
+		chrome.storage.local.set({'h_a_list':["◆"]},function(){});//コテあぼーんハードは"◆"
+		chrome.storage.local.set({'s_a_list':["◆"]},function(){});//コテあぼーんソフトは"◆"
+		chrome.storage.local.set({'ng_word_list':[]},function(){});//NGワードは何も設定しない
+		chrome.storage.local.set({'ng_th_list':[]},function(){});//NGスレタイは何も設定しない
+		chrome.storage.local.set({'ng_tw_list':["@"]},function(){});//NGTWIDは"@"
 		chrome.storage.local.set({'sbezck':false},function(){});//隠しオプションはチェックを外す
 		chrome.storage.local.set({'createdck':false},function(){});//隠しオプションはチェックを外す
 
@@ -114,11 +121,11 @@ init_storage();
 
 //ストレージからNGワードなどを取得し、おぷしょんぺーじに表示する
 chrome.storage.local.get(["h_a_list","s_a_list","ng_word_list","ng_th_list","ng_tw_list","sbezck","createdck"],function(items){
-			$("#h_a_list").val( items.h_a_list );
-			$("#s_a_list").val( items.s_a_list );
-			$("#ng_word_list").val( items.ng_word_list );
-			$("#ng_th_list").val( items.ng_th_list );
-			$("#ng_tw_list").val( items.ng_tw_list );
+			$("#h_a_list").val( items.h_a_list.join("\n") );
+			$("#s_a_list").val( items.s_a_list.join("\n") );
+			$("#ng_word_list").val( items.ng_word_list.join("\n") );
+			$("#ng_th_list").val( items.ng_th_list.join("\n") );
+			$("#ng_tw_list").val( items.ng_tw_list.join("\n") );
 
 			$("#sbez").prop("checked",items.sbezck);
 			$("#created").prop("checked",items.createdck);

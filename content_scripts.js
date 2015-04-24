@@ -41,24 +41,19 @@ chrome.storage.local.get(
 
 	//==================
 	// http://*.open2ch.net/*配下で実行
-		var $foo1 = items.h_a_list;
-		var $foo2 = items.s_a_list;
-		var $foo3 = items.ng_word_list;
-		var $foo35 = items.ng_th_list;
-		var $foo4 = items.ng_tw_list;
-
-		hard_abone_list = $foo1.split(",");
-		soft_abone_list = $foo2.split(",");
-		ng_word_listt = $foo3.split(",");
-		ng_th_listt = $foo35.split(",");
-		ng_tw_listt = $foo4.split(",");
 
 
+		//変数退避
+		hard_abone_list = items.h_a_list;
+		soft_abone_list = items.s_a_list;
+		ng_word_listt = items.ng_word_list;
+		ng_th_listt = items.ng_th_list;
+		ng_tw_listt = items.ng_tw_list;
 
 
 		//ハードあぼーんのみ実行
 		if(items.kote_hard - items.kote_soft == 1){
-			if( hard_abone_list[0] != "" ){
+			if( hard_abone_list != [] ){
 				console.log("exec hardAboner");
 				hardAboner();
 			}
@@ -66,7 +61,7 @@ chrome.storage.local.get(
 
 		//ソフトあぼーんのみ実行
 		if(items.kote_soft - items.kote_hard == 1){
-			if( soft_abone_list[0] != "" ){
+			if( soft_abone_list != [] ){
 				console.log("exec softAboner");
 				softAboner();
 			}
@@ -74,12 +69,12 @@ chrome.storage.local.get(
 
 		//ハードあぼーんもソフトあぼーんも実行
 		if(items.kote_hard * items.kote_soft == 1){
-			if( hard_abone_list[0] != "" ){
+			if( hard_abone_list != [] ){
 				console.log("exec hardAboner");
 				hardAboner();
 			}
 
-			if( soft_abone_list[0] != "" ){
+			if( soft_abone_list != [] ){
 				console.log("exec softAboner");
 				softAboner();
 			}
@@ -100,7 +95,7 @@ chrome.storage.local.get(
 
 		//NGワードのハードあぼーんを実行
 		if( items.ng_hard == 1){
-			if( ng_word_listt[0] != "" ){
+			if( ng_word_listt != [] ){
 				console.log("exec hardNgAboner");
 				hardNgAboner();					
 			}
@@ -108,7 +103,7 @@ chrome.storage.local.get(
 
 		//NGスレタイのハードあぼーんを実行
 		if( items.th_hard == 1){
-			if( ng_th_listt[0] != "" ){
+			if( ng_th_listt != [] ){
 				console.log("exec hardThAboner");
 				hardThAboner();
 			}
@@ -116,7 +111,7 @@ chrome.storage.local.get(
 
 		//NGTWIDのハードあぼーんを実行
 		if( items.tw_hard == 1){
-			if( ng_tw_listt[0] != "" ){
+			if( ng_tw_listt != [] ){
 				console.log("exec hardTwAboner");
 				hardTwAboner();
 			}
@@ -157,10 +152,12 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 //指定したコテの書き込みを非表示にする。
 function hardAboner(){
 	$.each(hard_abone_list,function(){
-		var $temph = $("dl dt font:contains("+this+"),dl dt a:contains("+this+"):not('.id')");
-		$temph.html("<b>こてあぼーん</b>");
-		$temph.parent().next().css("visibility","hidden");
-		$temph.parent().next().children().css("visibility","hidden");
+		if( this != "" ){
+			var $temph = $("dl dt font:contains('"+this+"'),dl dt a:contains('"+this+"'):not('.id')");
+			$temph.html("<b>こてあぼーん</b>");
+			$temph.parent().next().css("visibility","hidden");
+			$temph.parent().next().children().css("visibility","hidden");
+		}
 	})
 };
 
@@ -168,8 +165,10 @@ function hardAboner(){
 //指定したコテの名前を「名無しさん＠おーぷん」にする。
 function softAboner(){
 	$.each(soft_abone_list,function(){
-		var $temps = $("dl dt font:contains("+this+"),dl dt a:contains("+this+"):not('.id')");
-		$temps.html("<b>名無しさん＠おーぷん</b>");
+		if( this != "" ){
+			var $temps = $("dl dt font:contains('"+this+"'),dl dt a:contains('"+this+"'):not('.id')");
+			$temps.html("<b>名無しさん＠おーぷん</b>");
+		}
 	})
 };
 
@@ -191,16 +190,17 @@ function hardGazoAboner(){
 //関数：softGazoAboner
 //画像を薄くする
 function softGazoAboner(){
-	var $sga = $(".thread img");
-	$sga.css("opacity","0.3");
-
+	var $sga = $(".thread img[src!='http://open2ch.net/image/twitter/twicon.png'] + .thread img[src!='http://open.open2ch.net/image/icon/bubble_dark.png']");
+//	$sga.css("opacity","0.3");
+	var $filterval = 'blur(3px)';//ぼかしフィルタblurのパラメータ。数字を大きくすればさらにぼかすことができる。
+	$sga.css('-webkit-filter',$filterval);
 
 	var $spi = $(".mesg .pic");
-	$spi.css("opacity","0.3");
+	$spi.css('-webkit-filter',$filterval);
 
 	var $spl = $("img.pic.lazy");
-	$spl.css("opacity","0.3");
-	$spl.parent().parent().css("opacity","0.3");
+	$spl.css('-webkit-filter',$filterval);
+	$spl.parent().parent().css('-webkit-filter',$filterval);
 
 };
 
@@ -208,7 +208,9 @@ function softGazoAboner(){
 //NGワードを含むスレを非表示にする
 function hardNgAboner(){
 	$.each(ng_word_listt,function(){
-		$(".thread dl dd:contains('"+this+"')").css("visibility","hidden");
+		if( this != "" ){
+			$(".thread dl dd:contains('"+this+"')").css("visibility","hidden");
+		}
 	});
 };
 
@@ -216,25 +218,32 @@ function hardNgAboner(){
 //NGTWIDを含むスレを非表示にする
 function hardTwAboner(){
 	$.each(ng_tw_listt,function(){
-		$hta = $("dl dt a:contains('ID:tw"+this+"')");
-		$hta.html("ついったーあぼーん");
-		$hta.parent().parent().next().css("visibility","hidden");
-		$hta.parent().parent().next().children().css("visibility","hidden");
-		$hta.parent().prev().html("<b>ついったーあぼーん</b>");
+		if( this != ""){
+			$hta = $("dl dt a:contains('ID:tw"+this+"')");
+			$hta.html("ついったーあぼーん");
+			$hta.parent().parent().next().css("visibility","hidden");
+			$hta.parent().parent().next().children().css("visibility","hidden");
+			$hta.parent().prev().html("<b>ついったーあぼーん</b>");
+		}
 	});
 };
+
 
 
 //関数：hardThAboner
 //NGスレタイを非表示にする
 function hardThAboner(){
 	//subback.htmlの時
-	if( (location.href).indexOf("subback.html") > 0 ) {
+//	if( (location.href).indexOf("subback.html") > 0 ) {
 		$.each(ng_th_listt,function(){
-			//NGワードを含むスレタイを除外
-	  		$("a:contains('"+this+"')").empty();  
+			if( this != "" ){
+				//NGワードを含むスレタイを除外
+		  		$("#topThreads a:contains('"+this+"')").empty(); //板トップのスレ一覧から
+	  			$("#trad a:contains('" +this+ "')").prev().empty();//スレ一覧(subback.html)から
+	  			$("#trad a:contains('" +this+ "')").empty();//スレ一覧(subback.html)から 				
+			}
 		});
-	};
+//	};
 };
 
 
