@@ -219,11 +219,23 @@ function hardNgAboner(){
 function hardTwAboner(){
 	$.each(ng_tw_listt,function(){
 		if( this != ""){
-			$hta = $("dl dt a:contains('ID:tw"+this+"')");
+			//大前提：thisに入るtwitterIDは「@twitter_id」のように「@」付きであること。
+			//twitter IDをセレクトする
+			$hta = $("dl dt span a:contains('tw"+this+"')");//最初にスレを開いた時のtwitter ID を補足するセレクタ
+			$htb = $("dl dt>a:contains('tw"+this+"')");//新着レス表示で表示されるtwitter ID を補足するセレクタ
+
+			//ID欄をついったーあぼーん表示にする
 			$hta.html("ついったーあぼーん");
-			$hta.parent().parent().next().css("visibility","hidden");
-			$hta.parent().parent().next().children().css("visibility","hidden");
+			$htb.html("ついったーあぼーん");
+
+			//名前欄をついったーあぼーんにする
 			$hta.parent().prev().html("<b>ついったーあぼーん</b>");
+			$htb.prev().html("<b>ついったーあぼーん</b>");
+
+			//書き込みを非表示にする
+//			$hta.parent().parent().next().css("visibility","hidden");
+//			$hta.parent().parent().next().children().css("visibility","hidden");
+			$(".idtw\\"+this+".mesg").css("visibility","hidden");
 		}
 	});
 };
